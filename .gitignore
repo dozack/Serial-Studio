@@ -34,3 +34,6 @@ Temporary Items
 
 # Build output folder
 build/
+
+# Python virtual environment folder
+.venv/
