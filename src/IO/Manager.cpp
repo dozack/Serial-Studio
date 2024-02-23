@@ -25,9 +25,6 @@
 #include <IO/Checksum.h>
 #include <IO/Drivers/Serial.h>
 #include <IO/Drivers/Network.h>
-#include <IO/Drivers/BluetoothLE.h>
-
-#include <MQTT/Client.h>
 
 /**
  * Adds support for C escape sequences to the given @a str.
@@ -110,7 +107,7 @@ bool IO::Manager::connected()
     if (driver())
         return driver()->isOpen();
 
-    return MQTT::Client::instance().isSubscribed();
+    return false;
 }
 
 /**
@@ -200,7 +197,6 @@ StringList IO::Manager::availableDrivers() const
     StringList list;
     list.append(tr("Serial port"));
     list.append(tr("Network port"));
-    list.append(tr("Bluetooth LE device"));
     return list;
 }
 
@@ -408,10 +404,6 @@ void IO::Manager::setSelectedDriver(const IO::Manager::SelectedDriver &driver)
     // Try to open a network connection
     else if (selectedDriver() == SelectedDriver::Network)
         setDriver(&(Drivers::Network::instance()));
-
-    // Try to open a BLE connection
-    else if (selectedDriver() == SelectedDriver::BluetoothLE)
-        setDriver(&(Drivers::BluetoothLE::instance()));
 
     // Invalid driver
     else

@@ -356,7 +356,7 @@ FramelessWindow.CustomWindow {
                     enabled: !Cpp_MQTT_Client.isConnectedToHost
 
                     onCheckedChanged: {
-                        if (Cpp_MQTT_Client.retain != checked)
+                        if (Cpp_MQTT_Client.retain !== checked)
                             Cpp_MQTT_Client.retain = checked
                     }
                 }

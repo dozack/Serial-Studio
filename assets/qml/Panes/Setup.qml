@@ -20,10 +20,10 @@
  * THE SOFTWARE.
  */
 
+import QtCore
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import Qt.labs.settings
 
 import "../Widgets" as Widgets
 import "SetupPanes" as SetupPanes
@@ -69,17 +69,6 @@ Item {
         property alias manual: commManual.checked
         property alias tabIndex: tab.currentIndex
         property alias csvExport: csvLogging.checked
-
-        //
-        // MQTT settings
-        //
-        property alias mqttHost: mqtt.host
-        property alias mqttPort: mqtt.port
-        property alias mqttUser: mqtt.user
-        property alias mqttMode: mqtt.mode
-        property alias mqttTopic: mqtt.topic
-        property alias mqttVersion: mqtt.version
-        property alias mqttPassword: mqtt.password
 
         //
         // App settings
@@ -229,12 +218,6 @@ Item {
                 }
 
                 TabButton {
-                    text: qsTr("MQTT")
-                    height: tab.height + 3
-                    width: implicitWidth + 2 * app.spacing
-                }
-
-                TabButton {
                     text: qsTr("Settings")
                     height: tab.height + 3
                     width: implicitWidth + 2 * app.spacing
@@ -254,16 +237,6 @@ Item {
 
                 SetupPanes.Hardware {
                     id: hardware
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    background: TextField {
-                        enabled: false
-                        palette.base: Cpp_ThemeManager.setupPanelBackground
-                    }
-                }
-
-                SetupPanes.MQTT {
-                    id: mqtt
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     background: TextField {

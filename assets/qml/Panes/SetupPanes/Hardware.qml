@@ -20,10 +20,10 @@
  * THE SOFTWARE.
  */
 
+import QtCore
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import Qt.labs.settings as QtSettings
 
 import "Devices" as Devices
 import "../../Windows" as Windows
@@ -34,7 +34,7 @@ Control {
     //
     // Save settings
     //
-    QtSettings.Settings {
+    Settings {
         property alias driver: _driverCombo.currentIndex
         property alias parity: serial.parity
         property alias baudRate: serial.baudRate
@@ -98,15 +98,6 @@ Control {
 
             Devices.Network {
                 id: network
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                background: TextField {
-                    enabled: false
-                }
-            }
-
-            Devices.BluetoothLE {
-                id: bluetoothLE
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 background: TextField {

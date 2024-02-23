@@ -41,7 +41,6 @@
       "csvCheckbox":"#2e895c",
       "connectButtonChecked":"#fc5142",
       "connectButtonUnchecked":"#2eed5c",
-      "mqttButton":"#eda870",
       "widgetTextPrimary":"#f1bd92",
       "widgetTextSecondary":"#517497",
       "widgetWindowBackground":"#484f62",

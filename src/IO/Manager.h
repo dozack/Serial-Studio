@@ -120,7 +120,6 @@ public:
     {
         Serial,
         Network,
-        BluetoothLE
     };
     Q_ENUM(SelectedDriver)
 

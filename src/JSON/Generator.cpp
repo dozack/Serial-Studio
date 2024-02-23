@@ -31,7 +31,6 @@
 
 #include <CSV/Player.h>
 #include <IO/Manager.h>
-#include <MQTT/Client.h>
 #include <Misc/Utilities.h>
 
 /**

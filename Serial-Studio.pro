@@ -48,7 +48,6 @@ QT += svg
 QT += core
 QT += quick
 QT += widgets
-QT += bluetooth
 QT += serialport
 QT += printsupport
 QT += quickcontrols2
@@ -148,7 +147,6 @@ HEADERS += \
     src/DataTypes.h \
     src/IO/Checksum.h \
     src/IO/Console.h \
-    src/IO/Drivers/BluetoothLE.h \
     src/IO/Drivers/Network.h \
     src/IO/Drivers/Serial.h \
     src/IO/HAL_Driver.h \
@@ -157,7 +155,6 @@ HEADERS += \
     src/JSON/Frame.h \
     src/JSON/Generator.h \
     src/JSON/Group.h \
-    src/MQTT/Client.h \
     src/Misc/MacExtras.h \
     src/Misc/ModuleManager.h \
     src/Misc/ThemeManager.h \
@@ -193,7 +190,6 @@ SOURCES += \
     src/CSV/Player.cpp \
     src/IO/Checksum.cpp \
     src/IO/Console.cpp \
-    src/IO/Drivers/BluetoothLE.cpp \
     src/IO/Drivers/Network.cpp \
     src/IO/Drivers/Serial.cpp \
     src/IO/Manager.cpp \
@@ -201,7 +197,6 @@ SOURCES += \
     src/JSON/Frame.cpp \
     src/JSON/Generator.cpp \
     src/JSON/Group.cpp \
-    src/MQTT/Client.cpp \
     src/Misc/MacExtras.cpp \
     src/Misc/ModuleManager.cpp \
     src/Misc/ThemeManager.cpp \

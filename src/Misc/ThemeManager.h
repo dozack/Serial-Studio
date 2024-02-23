@@ -187,9 +187,6 @@ class ThemeManager : public QObject
     Q_PROPERTY(QColor connectButtonUnchecked
                READ connectButtonUnchecked
                CONSTANT)
-    Q_PROPERTY(QColor mqttButton
-               READ mqttButton
-               CONSTANT)
     Q_PROPERTY(StringList widgetColors
                READ widgetColors
                CONSTANT)
@@ -267,7 +264,6 @@ public:
     QColor widgetControlBackground() const;
     QColor connectButtonChecked() const;
     QColor connectButtonUnchecked() const;
-    QColor mqttButton() const;
 
     StringList widgetColors() const;
     StringList availableThemes() const;
@@ -335,7 +331,6 @@ private:
     QColor m_widgetControlBackground;
     QColor m_connectButtonChecked;
     QColor m_connectButtonUnchecked;
-    QColor m_mqttButton;
     StringList m_widgetColors;
 };
 }

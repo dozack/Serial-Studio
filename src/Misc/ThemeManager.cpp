@@ -195,7 +195,6 @@ void Misc::ThemeManager::loadTheme(const int id)
     m_widgetControlBackground = QColor(colors.value("widgetControlBackground").toString());
     m_connectButtonChecked = QColor(colors.value("connectButtonChecked").toString());
     m_connectButtonUnchecked = QColor(colors.value("connectButtonUnchecked").toString());
-    m_mqttButton = QColor(colors.value("mqttButton").toString());
     // clang-format on
 
     // Read bar widget colors
@@ -503,11 +502,6 @@ QColor Misc::ThemeManager::connectButtonChecked() const
 QColor Misc::ThemeManager::connectButtonUnchecked() const
 {
     return m_connectButtonUnchecked;
-}
-
-QColor Misc::ThemeManager::mqttButton() const
-{
-    return m_mqttButton;
 }
 
 StringList Misc::ThemeManager::widgetColors() const
