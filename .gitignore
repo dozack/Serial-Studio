@@ -31,3 +31,6 @@ Temporary Items
 
 # Qt project file
 *.pro.user
+
+# Build output folder
+build/
