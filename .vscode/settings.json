@@ -1,0 +1,8 @@
+{
+    "cmake.configureSettings": {
+        "CMAKE_PREFIX_PATH": "~/Qt/6.6.2/gcc_64"
+    },
+    "cmake.configureArgs": [
+        "-Wno-dev"
+    ]
+}
