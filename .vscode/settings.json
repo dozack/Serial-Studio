@@ -4,5 +4,13 @@
     },
     "cmake.configureArgs": [
         "-Wno-dev"
-    ]
+    ],
+    "cmake.debugConfig": {
+        "MIMode": "gdb",
+        "logging": {
+            "moduleLoad": true,
+            "trace": true,
+            "exceptions": true
+        }
+    }
 }
