@@ -52,7 +52,10 @@
 #include <UI/Widgets/Terminal.h>
 
 #include <QQuickWindow>
+
+#ifndef DISABLE_QSU
 #include <QSimpleUpdater.h>
+#endif 
 
 /**
  * Configures the application font and configures application signals/slots to destroy
@@ -107,9 +110,11 @@ void Misc::ModuleManager::configureUpdater()
     if (!autoUpdaterEnabled())
         return;
 
+#ifndef DISABLE_QSU
     QSimpleUpdater::getInstance()->setNotifyOnUpdate(APP_UPDATER_URL, true);
     QSimpleUpdater::getInstance()->setNotifyOnFinish(APP_UPDATER_URL, false);
     QSimpleUpdater::getInstance()->setMandatoryUpdate(APP_UPDATER_URL, false);
+#endif
 }
 
 /**
@@ -175,8 +180,10 @@ void Misc::ModuleManager::initializeQmlInterface()
     auto miscThemeManager = &Misc::ThemeManager::instance();
     auto projectCodeEditor = &Project::CodeEditor::instance();
 
+#ifndef DISABLE_QSU
     // Initialize third-party modules
     auto updater = QSimpleUpdater::getInstance();
+#endif    
 
     // Operating system flags
     bool isWin = false;
@@ -217,7 +224,9 @@ void Misc::ModuleManager::initializeQmlInterface()
     c->setContextProperty("Cpp_IsMac", isMac);
     c->setContextProperty("Cpp_IsNix", isNix);
     c->setContextProperty("Cpp_OSName", osName);
+#ifndef DISABLE_QSU
     c->setContextProperty("Cpp_Updater", updater);
+#endif
     c->setContextProperty("Cpp_IO_Serial", ioSerial);
     c->setContextProperty("Cpp_CSV_Export", csvExport);
     c->setContextProperty("Cpp_CSV_Player", csvPlayer);
