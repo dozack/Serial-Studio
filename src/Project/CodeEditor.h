@@ -33,7 +33,7 @@
 #include <QJSValue>
 #include <QJSEngine>
 
-#include <QSourceHighlite/qsourcehighliter.h>
+#include <qsourcehighliter.h>
 
 namespace Project
 {
