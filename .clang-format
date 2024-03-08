@@ -13,9 +13,6 @@ BasedOnStyle: WebKit
 
 Standard: Cpp11
 
-# Leave the line breaks up to the user.
-# Note that this may be changed at some point in the future.
-ColumnLimit: 0
 # How much weight do extra characters after the line length limit have.
 # PenaltyExcessCharacter: 4
 
@@ -80,7 +77,7 @@ IndentCaseLabels: true
 
 IndentPPDirectives: AfterHash
 
-AlignAfterOpenBracket: Align
+#AlignAfterOpenBracket: Align
 
 AccessModifierOffset: -4
 

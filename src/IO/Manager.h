@@ -120,6 +120,7 @@ public:
     {
         Serial,
         Network,
+        CanBus
     };
     Q_ENUM(SelectedDriver)
 

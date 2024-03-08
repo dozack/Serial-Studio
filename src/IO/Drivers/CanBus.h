@@ -32,4 +32,79 @@ namespace IO
 namespace Drivers
 {
 
-}}
+class CanBus : public HAL_Driver
+{
+    // clang-format off
+    Q_OBJECT
+    Q_PROPERTY(QString interfaceName
+               READ interfaceName
+               NOTIFY interfaceNameChanged)
+    Q_PROPERTY(quint8 interfaceIndex
+               READ interfaceIndex
+               WRITE setInterfaceIndex
+               NOTIFY interfaceIndexChanged)
+    Q_PROPERTY(StringList interfaceList 
+               READ interfaceList 
+               NOTIFY availableInterfacesChanged)
+    Q_PROPERTY(bool isSupported 
+               READ isSupported 
+               CONSTANT)
+    // clang-format on
+
+Q_SIGNALS:
+    void interfaceNameChanged();
+    void interfaceIndexChanged();
+    void availableInterfacesChanged();
+
+private:
+    explicit CanBus();
+    CanBus(CanBus &&) = delete;
+    CanBus(const CanBus &) = delete;
+    CanBus &operator=(CanBus &&) = delete;
+    CanBus &operator=(const CanBus &) = delete;
+
+public:
+    static CanBus &instance();
+
+    void close() override;
+    bool isOpen() const override;
+    bool isReadable() const override;
+    bool isWritable() const override;
+    bool configurationOk() const override;
+    quint64 write(const QByteArray &data) override;
+    bool open(const QIODevice::OpenMode mode) override;
+
+    QString interfaceName() const;
+    QCanBusDevice *interface() const;
+
+    bool isSupported() const;
+
+    quint8 interfaceIndex() const;
+
+    StringList interfaceList() const;
+
+public Q_SLOTS:
+    void setInterfaceIndex(const quint8 portIndex);
+
+private Q_SLOTS:
+    void onReadyRead();
+    void readSettings();
+    void writeSettings();
+    void refreshInterfaceList();
+    void onErrorOccurred(const QCanBusDevice::CanBusError err);
+
+private:
+    QVector<QCanBusDeviceInfo> validInterfaces() const;
+
+private:
+    const bool m_supported;
+
+    QCanBusDevice *m_device;
+
+    quint8 m_interfaceIndex;
+
+    QStringList m_interfaceList;
+};
+
+}
+}
