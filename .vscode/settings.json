@@ -1,16 +1,8 @@
 {
     "cmake.configureSettings": {
-        "CMAKE_PREFIX_PATH": "~/Qt/6.6.2/gcc_64"
+        "CMAKE_PREFIX_PATH": "${env:QT_SDK_PATH}"
     },
     "cmake.configureArgs": [
         "-Wno-dev"
-    ],
-    "cmake.debugConfig": {
-        "MIMode": "gdb",
-        "logging": {
-            "moduleLoad": true,
-            "trace": true,
-            "exceptions": true
-        }
-    }
+    ]
 }
