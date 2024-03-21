@@ -25,6 +25,7 @@
 #include <IO/Checksum.h>
 #include <IO/Drivers/Serial.h>
 #include <IO/Drivers/Network.h>
+#include <IO/Drivers/CanBus.h>
 
 /**
  * Adds support for C escape sequences to the given @a str.

@@ -37,6 +37,7 @@
 #include <IO/Console.h>
 #include <IO/Drivers/Serial.h>
 #include <IO/Drivers/Network.h>
+#include <IO/Drivers/CanBus.h>
 
 #include <Misc/MacExtras.h>
 #include <Misc/Utilities.h>
@@ -54,8 +55,8 @@
 #include <QQuickWindow>
 
 #ifndef DISABLE_QSU
-#include <QSimpleUpdater.h>
-#endif 
+#    include <QSimpleUpdater.h>
+#endif
 
 /**
  * Configures the application font and configures application signals/slots to destroy
@@ -175,6 +176,7 @@ void Misc::ModuleManager::initializeQmlInterface()
     auto miscUtilities = &Misc::Utilities::instance();
     auto miscMacExtras = &Misc::MacExtras::instance();
     auto ioNetwork = &IO::Drivers::Network::instance();
+    auto ioCanBus = &IO::Drivers::CanBus::instance();
     auto miscTranslator = &Misc::Translator::instance();
     auto miscTimerEvents = &Misc::TimerEvents::instance();
     auto miscThemeManager = &Misc::ThemeManager::instance();
@@ -183,7 +185,7 @@ void Misc::ModuleManager::initializeQmlInterface()
 #ifndef DISABLE_QSU
     // Initialize third-party modules
     auto updater = QSimpleUpdater::getInstance();
-#endif    
+#endif
 
     // Operating system flags
     bool isWin = false;

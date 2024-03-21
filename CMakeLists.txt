@@ -144,6 +144,8 @@ target_compile_definitions(
     ${PROJECT_NAME} PRIVATE DISABLE_QSU SERIAL_STUDIO_INCLUDE_MOC
                             _USE_MATH_DEFINES)
 
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/samples)
+
 # Resources:
 
 # set_source_files_properties("libs/QSimpleUpdater/etc/resources/update.png"
