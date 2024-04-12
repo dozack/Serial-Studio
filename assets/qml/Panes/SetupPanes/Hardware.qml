@@ -104,6 +104,15 @@ Control {
                     enabled: false
                 }
             }
+
+            Devices.CanBus {
+                id: canbus
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                background: TextField {
+                    enabled: false
+                }
+            }
         }
     }
 }

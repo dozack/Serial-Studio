@@ -89,7 +89,7 @@ bool IO::Drivers::CanBus::isWritable() const
 
 bool IO::Drivers::CanBus::configurationOk() const
 {
-    return (true);
+    return (interfaceIndex() > 0);
 }
 
 quint64 IO::Drivers::CanBus::write(const QByteArray &data)
@@ -207,6 +207,8 @@ void IO::Drivers::CanBus::onErrorOccurred(QCanBusDevice::CanBusError error)
     Q_UNUSED(error)
 }
 
+#include <iostream>
+
 void IO::Drivers::CanBus::onFramesReceived()
 {
     Q_ASSERT(interface() != Q_NULLPTR);
@@ -215,7 +217,7 @@ void IO::Drivers::CanBus::onFramesReceived()
     {
         QCanBusFrame frame = interface()->readFrame();
 
-        qDebug().noquote() << frame.toString();
+        qInfo().noquote() << frame.toString();
     }
 }
 

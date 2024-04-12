@@ -27,15 +27,14 @@ import QtQuick.Controls
 Control {
     id: root
 
-
     ColumnLayout {
-        id: layout
         anchors.fill: parent
         anchors.margins: app.spacing
 
         GridLayout {
+            id: layout
             columns: 2
-            layout.fillWidth: true
+            Layout.fillWidth: true
             rowSpacing: app.spacing
             columnSpacing: app.spacing
 
@@ -43,8 +42,8 @@ Control {
                 opacity: enabled ? 1 : 0.5
                 text: qsTr("CAN interface") + ":"
                 enabled: !Cpp_IO_Manager.connected
-            }
-
+            } 
+            
             ComboBox {
                 id: _interfaceCombo
                 Layout.fillWidth: true
@@ -54,14 +53,30 @@ Control {
                 currentIndex: Cpp_IO_CanBus.interfaceIndex
                 palette.base: Cpp_ThemeManager.setupPanelBackground
                 onCurrentIndexChanged: {
-                    if (currentIndex !== Cpp_IO_CanBus.portIndex)
-                    {
-                        Cpp_IO_CanBus.interfaceIndex = currentIndex}
+                    if (currentIndex !== Cpp_IO_CanBus.interfaceIndex) {
+                        Cpp_IO_CanBus.interfaceIndex = currentIndex
                     }
                 }
             }
-            Item {
-                Layout.fillHeight: true
-            }
+
+            Label {
+                opacity: enabled ? 1 : 0.5
+                text: qsTr("Database file") + ":"
+                enabled: !Cpp_IO_Manager.connected
+            } 
+
+            Button {
+                Layout.fillWidth: true
+                opacity: enabled ? 1 : 0.5
+                enabled: !Cpp_IO_Manager.connected
+                onClicked: Cpp_DBC_Loader.dbcFileLoad()
+                text: (Cpp_DBC_Loader.dbcFileName.length ? Cpp_DBC_Loader.dbcFileName :
+                                                           qsTr("Select DBC file"))
+            }            
+        }
+
+        Item {
+            Layout.fillHeight: true
         }
     }
+}

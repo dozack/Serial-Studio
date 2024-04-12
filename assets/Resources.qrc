@@ -112,6 +112,7 @@
         <file>qml/FramelessWindow/Titlebar.qml</file>
         <file>qml/FramelessWindow/WindowButton.qml</file>
         <file>qml/FramelessWindow/WindowButtonMacOS.qml</file>
+        <file>qml/Panes/SetupPanes/Devices/CanBus.qml</file>
         <file>qml/Panes/SetupPanes/Devices/Network.qml</file>
         <file>qml/Panes/SetupPanes/Devices/Serial.qml</file>
         <file>qml/Panes/SetupPanes/Hardware.qml</file>

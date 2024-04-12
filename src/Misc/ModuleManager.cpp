@@ -25,6 +25,8 @@
 #include <CSV/Export.h>
 #include <CSV/Player.h>
 
+#include <DBC/Loader.h>
+
 #include <JSON/Frame.h>
 #include <JSON/Group.h>
 #include <JSON/Dataset.h>
@@ -181,6 +183,7 @@ void Misc::ModuleManager::initializeQmlInterface()
     auto miscTimerEvents = &Misc::TimerEvents::instance();
     auto miscThemeManager = &Misc::ThemeManager::instance();
     auto projectCodeEditor = &Project::CodeEditor::instance();
+    auto dbcLoader = &DBC::Loader::instance();
 
 #ifndef DISABLE_QSU
     // Initialize third-party modules
@@ -230,6 +233,7 @@ void Misc::ModuleManager::initializeQmlInterface()
     c->setContextProperty("Cpp_Updater", updater);
 #endif
     c->setContextProperty("Cpp_IO_Serial", ioSerial);
+    c->setContextProperty("Cpp_IO_CanBus", ioCanBus);
     c->setContextProperty("Cpp_CSV_Export", csvExport);
     c->setContextProperty("Cpp_CSV_Player", csvPlayer);
     c->setContextProperty("Cpp_IO_Console", ioConsole);
@@ -247,6 +251,7 @@ void Misc::ModuleManager::initializeQmlInterface()
     c->setContextProperty("Cpp_Project_CodeEditor", projectCodeEditor);
     c->setContextProperty("Cpp_UpdaterEnabled", autoUpdaterEnabled());
     c->setContextProperty("Cpp_ModuleManager", this);
+    c->setContextProperty("Cpp_DBC_Loader", dbcLoader);
 
     // Register app info with QML
     c->setContextProperty("Cpp_AppName", qApp->applicationName());

@@ -198,6 +198,7 @@ StringList IO::Manager::availableDrivers() const
     StringList list;
     list.append(tr("Serial port"));
     list.append(tr("Network port"));
+    list.append(tr("CAN interface"));
     return list;
 }
 
@@ -405,6 +406,9 @@ void IO::Manager::setSelectedDriver(const IO::Manager::SelectedDriver &driver)
     // Try to open a network connection
     else if (selectedDriver() == SelectedDriver::Network)
         setDriver(&(Drivers::Network::instance()));
+
+    else if (selectedDriver() == SelectedDriver::CanBus)
+        setDriver(&(Drivers::CanBus::instance()));
 
     // Invalid driver
     else
