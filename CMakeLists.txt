@@ -8,7 +8,7 @@ set(CMAKE_C_STANDARD            11 )
 set(CMAKE_C_STANDARD_REQUIRED   ON )
 set(CMAKE_C_EXTENSIONS          OFF)
 
-set(CMAKE_CXX_STANDARD          17 )
+set(CMAKE_CXX_STANDARD          11 )
 set(CMAKE_CXX_STANDARD_REQUIRED ON )
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
@@ -161,5 +161,3 @@ target_compile_options(${PROJECT_NAME}
     -Wextra
     -pedantic
     )
-
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/samples)

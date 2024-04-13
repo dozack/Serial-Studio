@@ -2,7 +2,7 @@
   "configurations": [
     {
       "name": "Linux",
-      "includePath": ["${workspaceFolder}/**", "${env:QT_SDK_PATH}/**"],
+      "includePath": ["${workspaceFolder}/**", "${env:QT_SDK_PATH}/include/**"],
       "defines": [],
       "cStandard": "c11",
       "cppStandard": "c++17",
