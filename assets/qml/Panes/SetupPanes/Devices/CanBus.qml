@@ -48,7 +48,7 @@ Control {
                 id: _interfaceCombo
                 Layout.fillWidth: true
                 opacity: enabled ? 1 : 0.5
-                model: Cpp_IO_CanBus.interfaceList
+                model: Cpp_IO_CanBus.availableDevices
                 enabled: !Cpp_IO_Manager.connected
                 currentIndex: Cpp_IO_CanBus.interfaceIndex
                 palette.base: Cpp_ThemeManager.setupPanelBackground

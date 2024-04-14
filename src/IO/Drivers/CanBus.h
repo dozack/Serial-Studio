@@ -36,25 +36,21 @@ class CanBus : public HAL_Driver
 {
     // clang-format off
     Q_OBJECT
-    Q_PROPERTY(QString interfaceName
-               READ interfaceName
-               NOTIFY interfaceNameChanged)
-    Q_PROPERTY(quint8 interfaceIndex
+    Q_PROPERTY(qsizetype interfaceIndex
                READ interfaceIndex
                WRITE setInterfaceIndex
                NOTIFY interfaceIndexChanged)
-    Q_PROPERTY(StringList interfaceList
-               READ interfaceList
-               NOTIFY availableInterfacesChanged)
+    Q_PROPERTY(QStringList availableDevices
+               READ availableDevices
+               NOTIFY availableDevicesChanged)
     Q_PROPERTY(bool isSupported 
                READ isSupported 
                CONSTANT)
     // clang-format on
 
 Q_SIGNALS:
-    void interfaceNameChanged();
     void interfaceIndexChanged();
-    void availableInterfacesChanged();
+    void availableDevicesChanged();
 
 private:
     explicit CanBus();
@@ -81,31 +77,28 @@ public:
 
     bool isSupported() const;
 
-    quint8 interfaceIndex() const;
+    qsizetype interfaceIndex() const;
 
-    StringList interfaceList() const;
+    QStringList availableDevices() const;
 
 public Q_SLOTS:
+    void listAvailableDevices();
     void disconnectDevice();
-    void setInterfaceIndex(const quint8 interfaceIndex);
+    void setInterfaceIndex(const qsizetype interfaceIndex);
 
 private Q_SLOTS:
     void onErrorOccurred(QCanBusDevice::CanBusError);
     void onFramesReceived();
     void onFramesWritten(qint64 framesCount);
     void onStateChanged(QCanBusDevice::CanBusDeviceState state);
-    void onInterfaceIndexChanged();
     void onTimerElapsed();
-
-private:
-    QVector<QCanBusDeviceInfo> validInterfaces() const;
 
 private:
     bool m_connected;
     QCanBusDevice *m_interface;
-    quint8 m_interfaceIndex;
+    qsizetype m_interfaceIndex;
     QStringList m_interfaceList;
-    QString m_interfaceName;
+    QList<QCanBusDeviceInfo> m_deviceInfo;
 };
 
 }
