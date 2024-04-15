@@ -22,44 +22,9 @@
 
 #pragma once
 
-#include <DataTypes.h>
+#include <QObject>
 
-namespace DBC
+namespace IO
 {
-
-class Loader : public QObject
-{
-    // clang-format off
-    Q_OBJECT
-    Q_PROPERTY(QString dbcFileName 
-               READ dbcFileName)
-    Q_PROPERTY(QString dbcFilePath 
-               READ dbcFilePath
-               NOTIFY dbcFileChanged)
-    // clang-format on
-
-Q_SIGNALS:
-    void dbcFileChanged();
-
-private:
-    explicit Loader();
-    Loader(Loader &&) = delete;
-    Loader(const Loader &) = delete;
-    Loader &operator=(Loader &&) = delete;
-    Loader &operator=(const Loader &) = delete;
-
-public:
-    static Loader &instance();
-
-    QString dbcFileName() const;
-    QString dbcFilePath() const;
-
-public Q_SLOTS:
-    void dbcFileLoad();
-    void dbcFileLoad(const QString &path);
-
-private:
-    QString m_dbcPath;
-};
 
 }

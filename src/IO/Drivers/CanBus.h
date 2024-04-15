@@ -22,10 +22,7 @@
 
 #pragma once
 
-#include <DataTypes.h>
 #include <IO/HAL_Driver.h>
-
-#include <QCanBusDevice>
 
 namespace IO
 {

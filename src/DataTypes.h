@@ -22,9 +22,87 @@
 
 #pragma once
 
-#include <QtCore>
+#include <QAbstractButton>
+#include <QAbstractSocket>
+#include <QApplication>
+#include <QBasicTimer>
+#include <QByteArray>
+#include <QCanBus>
+#include <QCanBusDevice>
+#include <QCanDbcFileParser>
+#include <QDateTime>
+#include <QDesktopServices>
+#include <QDialog>
+#include <QDir>
+#include <QFile>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QHBoxLayout>
+#include <QHostAddress>
+#include <QHostInfo>
+#include <QIODevice>
+#include <QJsonObject>
+#include <QLocale>
+#include <QMessageBox>
+#include <QObject>
+#include <QPalette>
+#include <QPlainTextEdit>
+#include <QPrintDialog>
+#include <QPrinter>
+#include <QProcess>
+#include <QPushButton>
+#include <QQuickTextDocument>
+#include <QRegularExpression>
+#include <QSettings>
 #include <QString>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QTextCursor>
+#include <QTextDocument>
+#include <QTextStream>
+#include <QTimerEvent>
+#include <QToolBar>
+#include <QTranslator>
+#include <QUdpSocket>
+#include <QUrl>
+#include <QVBoxLayout>
+#include <QVariant>
 #include <QVector>
+#include <QtCore>
+#include <QtMath>
+#include <QtSerialPort>
+
+#include <QJSEngine>
+#include <QJSValue>
+
+#ifdef QT_QML_LIB
+#    include <QtQml>
+#endif
+
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <cassert>
+#include <cfloat>
+#include <cmath>
+#include <complex>
+#include <condition_variable>
+#include <cstddef>
+#include <cstdint>
+#include <cstdlib>
+#include <functional>
+#include <initializer_list>
+#include <iterator>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <numeric>
+#include <set>
+#include <string>
+#include <thread>
+#include <type_traits>
+#include <unordered_map>
+#include <vector>
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #    include <QStringList>

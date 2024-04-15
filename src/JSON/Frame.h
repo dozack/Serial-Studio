@@ -22,11 +22,6 @@
 
 #pragma once
 
-#include <QVector>
-#include <QObject>
-#include <QVariant>
-#include <QJsonArray>
-#include <QJsonObject>
 #include <JSON/Group.h>
 
 namespace JSON

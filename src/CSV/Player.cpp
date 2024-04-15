@@ -22,10 +22,6 @@
 
 #include "Player.h"
 
-#include <QtMath>
-#include <QFileDialog>
-#include <QApplication>
-
 #include <qtcsv/stringdata.h>
 #include <qtcsv/reader.h>
 

@@ -22,18 +22,12 @@
 
 #include "Loader.h"
 
-#include <QFileInfo>
-#include <QFileDialog>
-
 #include <Project/Model.h>
+#include <IO/Manager.h>
 
 #include <Misc/Utilities.h>
 
-DBC::Loader::Loader()
-    : m_dbcPath("")
-    , m_dbcData()
-{
-}
+DBC::Loader::Loader() { }
 
 DBC::Loader &DBC::Loader::instance()
 {
@@ -80,26 +74,22 @@ void DBC::Loader::dbcFileLoad()
 
 void DBC::Loader::dbcFileLoad(const QString &path)
 {
-    if (path.isEmpty())
+    if (path == m_dbcPath)
     {
         return;
     }
 
-    m_dbcPath = path;
-
-    if (!m_dbcData.isEmpty())
+    if (!m_dbcPath.isEmpty())
     {
-        m_dbcData = dbc_data();
-
-        Q_EMIT dbcFileChanged();
+        m_dbcPath = QString();
     }
 
     auto parser = QCanDbcFileParser();
-    auto result = parser.parse(path);
 
-    if (!result)
+    if (!parser.parse(path))
     {
         Misc::Utilities::showMessageBox(tr("DBC parse error"), parser.errorString());
+        return;
     }
 
     auto warnings = parser.warnings();
@@ -112,10 +102,7 @@ void DBC::Loader::dbcFileLoad(const QString &path)
         }
     }
 
-    m_dbcData.name = QFileInfo(m_dbcPath).fileName();
-    m_dbcData.uniqueid = QCanDbcFileParser::uniqueIdDescription();
-    m_dbcData.messages = parser.messageDescriptions();
-    m_dbcData.values = parser.messageValueDescriptions();
+    m_dbcPath = path;
 
     Q_EMIT dbcFileChanged();
 }

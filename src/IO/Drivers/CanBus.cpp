@@ -2,8 +2,6 @@
 #include <IO/Drivers/CanBus.h>
 #include <Misc/TimerEvents.h>
 
-#include <QCanBus>
-
 #define SUPPORTED_PLUGINS                                                                \
     {                                                                                    \
         "socketcan"                                                                      \
@@ -223,9 +221,10 @@ void IO::Drivers::CanBus::onFramesReceived()
 
     while (interface()->framesAvailable() > 0)
     {
-        QCanBusFrame frame = interface()->readFrame();
+        auto frame = interface()->readFrame().toString().toStdString() + "\n";
 
-        qInfo().noquote() << frame.toString();
+        IO::Manager::instance().processPayload(QByteArray::fromStdString(frame));
+
     }
 }
 

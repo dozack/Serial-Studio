@@ -22,9 +22,7 @@
 
 #pragma once
 
-#include <QFile>
-#include <QObject>
-#include <QVector>
+#include <DataTypes.h>
 
 namespace CSV
 {

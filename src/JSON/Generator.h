@@ -22,14 +22,6 @@
 
 #pragma once
 
-#include <QFile>
-#include <QObject>
-#include <QSettings>
-#include <QJsonArray>
-#include <QJsonValue>
-#include <QJsonObject>
-#include <QJsonDocument>
-
 #include <JSON/Frame.h>
 
 namespace JSON

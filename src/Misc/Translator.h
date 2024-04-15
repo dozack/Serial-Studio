@@ -22,14 +22,7 @@
 
 #pragma once
 
-#include <QLocale>
-#include <QObject>
-#include <QTranslator>
 #include <DataTypes.h>
-
-#ifdef QT_QML_LIB
-#    include <QtQml>
-#endif
 
 namespace Misc
 {

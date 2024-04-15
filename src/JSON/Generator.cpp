@@ -22,14 +22,9 @@
 
 #include "Generator.h"
 
-#include <QFileInfo>
-#include <QFileDialog>
-#include <QRegularExpression>
-
 #include <Project/Model.h>
 #include <Project/CodeEditor.h>
 
-#include <CSV/Player.h>
 #include <IO/Manager.h>
 #include <Misc/Utilities.h>
 

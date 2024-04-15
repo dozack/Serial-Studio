@@ -20,13 +20,6 @@
  * THE SOFTWARE.
  */
 
-#include <QFile>
-#include <QPrinter>
-#include <QDateTime>
-#include <QFileDialog>
-#include <QPrintDialog>
-#include <QTextDocument>
-
 #include <IO/Manager.h>
 #include <IO/Console.h>
 #include <Misc/Utilities.h>

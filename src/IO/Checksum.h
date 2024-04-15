@@ -22,8 +22,7 @@
 
 #pragma once
 
-#include <cstdint>
-#include <cstdlib>
+#include <DataTypes.h>
 
 namespace IO
 {

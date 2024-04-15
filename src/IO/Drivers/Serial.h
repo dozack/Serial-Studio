@@ -22,16 +22,7 @@
 
 #pragma once
 
-#include <DataTypes.h>
 #include <IO/HAL_Driver.h>
-
-#include <QObject>
-#include <QString>
-#include <QSettings>
-#include <QByteArray>
-#include <QtSerialPort>
-#include <QTextCursor>
-#include <QQuickTextDocument>
 
 namespace IO
 {

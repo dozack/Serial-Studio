@@ -22,9 +22,7 @@
 
 #pragma once
 
-#include <QObject>
-#include <QVariant>
-#include <QJsonObject>
+#include <DataTypes.h>
 
 namespace Project
 {

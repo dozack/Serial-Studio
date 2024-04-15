@@ -22,16 +22,7 @@
 
 #pragma once
 
-#include <QObject>
-#include <QDialog>
-#include <QToolBar>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QPlainTextEdit>
-
-#include <QJSValue>
-#include <QJSEngine>
+#include <DataTypes.h>
 
 #include <qsourcehighliter.h>
 

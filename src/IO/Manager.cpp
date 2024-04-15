@@ -63,7 +63,7 @@ IO::Manager::Manager()
 {
     // Set initial settings
     setMaxBufferSize(1024 * 1024);
-    setSelectedDriver(SelectedDriver::Serial);
+    setSelectedDriver(SelectedDriver::CanBus);
 
     // clang-format off
 

@@ -22,8 +22,6 @@
 
 #pragma once
 
-#include <QObject>
-#include <DataTypes.h>
 #include <JSON/Group.h>
 #include <JSON/Dataset.h>
 

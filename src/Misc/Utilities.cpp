@@ -20,16 +20,6 @@
  * THE SOFTWARE.
  */
 
-#include <QDir>
-#include <QUrl>
-#include <QPalette>
-#include <QProcess>
-#include <QFileInfo>
-#include <QMessageBox>
-#include <QApplication>
-#include <QAbstractButton>
-#include <QDesktopServices>
-
 #include <AppInfo.h>
 #include <Misc/Utilities.h>
 

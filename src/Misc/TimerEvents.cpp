@@ -20,7 +20,6 @@
  * THE SOFTWARE.
  */
 
-#include <QTimerEvent>
 #include <Misc/TimerEvents.h>
 
 /**

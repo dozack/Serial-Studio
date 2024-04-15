@@ -22,12 +22,6 @@
 
 #include "Export.h"
 
-#include <QDir>
-#include <QUrl>
-#include <QFileInfo>
-#include <QApplication>
-#include <QDesktopServices>
-
 #include <AppInfo.h>
 #include <IO/Manager.h>
 #include <UI/Dashboard.h>

@@ -20,7 +20,6 @@
  * THE SOFTWARE.
  */
 
-#include <CSV/Player.h>
 #include <UI/Dashboard.h>
 #include <UI/Widgets/Plot.h>
 #include <Misc/ThemeManager.h>

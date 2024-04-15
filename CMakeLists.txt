@@ -71,6 +71,11 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/Common
     )
 
+target_precompile_headers(${PROJECT_NAME}
+    PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/src/DataTypes.h
+    )
+
 target_sources(${PROJECT_NAME}
     PRIVATE
     ${SERIALSTUDIO_MOC_HDRS}

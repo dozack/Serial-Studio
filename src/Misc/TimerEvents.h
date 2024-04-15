@@ -22,8 +22,7 @@
 
 #pragma once
 
-#include <QObject>
-#include <QBasicTimer>
+#include <DataTypes.h>
 
 namespace Misc
 {

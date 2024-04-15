@@ -22,9 +22,7 @@
 
 #pragma once
 
-#include <QObject>
-#include <QMessageBox>
-#include <QApplication>
+#include <DataTypes.h>
 
 namespace Misc
 {

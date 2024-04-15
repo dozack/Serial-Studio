@@ -22,7 +22,6 @@
 
 #pragma once
 
-#include <QVector>
 #include <JSON/Dataset.h>
 
 namespace UI

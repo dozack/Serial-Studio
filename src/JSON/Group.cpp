@@ -20,7 +20,6 @@
  * THE SOFTWARE.
  */
 
-#include <QJsonArray>
 #include <JSON/Group.h>
 
 static JSON::Dataset EMPTY_DATASET;

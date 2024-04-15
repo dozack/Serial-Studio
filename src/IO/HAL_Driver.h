@@ -22,8 +22,7 @@
 
 #pragma once
 
-#include <QObject>
-#include <QIODevice>
+#include <DataTypes.h>
 
 namespace IO
 {

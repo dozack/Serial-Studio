@@ -22,8 +22,6 @@
 
 #pragma once
 
-#include <QObject>
-#include <DataTypes.h>
 #include <IO/HAL_Driver.h>
 
 namespace IO

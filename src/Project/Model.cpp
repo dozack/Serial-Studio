@@ -23,13 +23,6 @@
 #include "Model.h"
 #include "CodeEditor.h"
 
-#include <QFile>
-#include <QFileInfo>
-#include <QJsonArray>
-#include <QFileDialog>
-#include <QJsonObject>
-#include <QJsonDocument>
-
 #include <AppInfo.h>
 #include <IO/Manager.h>
 #include <JSON/Generator.h>

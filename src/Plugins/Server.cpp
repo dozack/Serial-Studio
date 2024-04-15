@@ -20,10 +20,6 @@
  * THE SOFTWARE.
  */
 
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QJsonDocument>
-
 #include <IO/Manager.h>
 #include <JSON/Generator.h>
 #include <Misc/Utilities.h>
