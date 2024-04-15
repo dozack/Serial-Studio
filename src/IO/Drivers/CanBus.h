@@ -78,6 +78,9 @@ public:
 
     QStringList availableDevices() const;
 
+private:
+    QStringList availableDeviceNames() const;
+
 public Q_SLOTS:
     void listAvailableDevices();
     void disconnectDevice();

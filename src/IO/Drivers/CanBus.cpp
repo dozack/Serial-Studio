@@ -152,41 +152,56 @@ qsizetype IO::Drivers::CanBus::interfaceIndex() const
 
 QStringList IO::Drivers::CanBus::availableDevices() const
 {
-    QStringList deviceList;
+    auto deviceList = QStringList(tr("Select device"));
 
-    deviceList.append(tr("Select device"));
+    deviceList.append(availableDeviceNames());
+
+    return deviceList;
+}
+
+QStringList IO::Drivers::CanBus::availableDeviceNames() const
+{
+    auto deviceNames = QStringList();
 
     Q_FOREACH (QCanBusDeviceInfo deviceInfo, m_deviceInfo)
     {
-        deviceList.append(deviceInfo.name());
+        deviceNames.append(deviceInfo.name());
     }
 
-    return deviceList;
+    deviceNames.sort();
+
+    return deviceNames;
 }
 
 void IO::Drivers::CanBus::listAvailableDevices()
 {
     auto newDeviceInfo = QList<QCanBusDeviceInfo>();
+    auto newDeviceNames = QStringList();
     auto pluginNames = QCanBus::instance()->plugins();
 
     pluginNames.removeIf([](QString pluginName) {
         return !QStringList(SUPPORTED_PLUGINS).contains(pluginName);
     });
 
-    Q_FOREACH (QString pluginName, pluginNames)
+    Q_FOREACH (auto pluginName, pluginNames)
     {
         auto deviceInfos = QCanBus::instance()->availableDevices(pluginName);
 
         Q_FOREACH (auto deviceInfo, deviceInfos)
         {
-            if (!deviceInfo.isVirtual() || deviceInfo.plugin() == QString("socketcan"))
-            {
-                newDeviceInfo.append(deviceInfo);
-            }
+            newDeviceInfo.append(deviceInfo);
+            newDeviceNames.append(deviceInfo.name());
         }
     }
 
-    m_deviceInfo = newDeviceInfo;
+    newDeviceNames.sort();
+
+    if (newDeviceNames != availableDeviceNames())
+    {
+        m_deviceInfo = newDeviceInfo;
+
+        Q_EMIT availableDevicesChanged();
+    }
 }
 
 void IO::Drivers::CanBus::disconnectDevice()
@@ -224,7 +239,6 @@ void IO::Drivers::CanBus::onFramesReceived()
         auto frame = interface()->readFrame().toString().toStdString() + "\n";
 
         IO::Manager::instance().processPayload(QByteArray::fromStdString(frame));
-
     }
 }
 
@@ -240,14 +254,10 @@ void IO::Drivers::CanBus::onStateChanged(QCanBusDevice::CanBusDeviceState state)
 
 void IO::Drivers::CanBus::onTimerElapsed()
 {
-    if (m_connected)
+    if (!m_connected)
     {
-        return;
+        listAvailableDevices();
     }
-
-    listAvailableDevices();
-
-    Q_EMIT availableDevicesChanged();
 }
 
 #ifdef SERIAL_STUDIO_INCLUDE_MOC
