@@ -22,14 +22,14 @@
 
 #pragma once
 
-#include <IO/HAL_Driver.h>
+#include <IO/Driver.h>
 
 namespace IO
 {
 namespace Drivers
 {
 
-class CanBus : public HAL_Driver
+class CanBus : public IO::Driver
 {
     // clang-format off
     Q_OBJECT

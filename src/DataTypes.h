@@ -53,6 +53,7 @@
 #include <QPushButton>
 #include <QQuickTextDocument>
 #include <QRegularExpression>
+#include <QSet>
 #include <QSettings>
 #include <QString>
 #include <QTcpServer>

@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include <IO/HAL_Driver.h>
+#include <IO/Driver.h>
 
 namespace IO
 {
@@ -140,7 +140,7 @@ public:
 
     int maxBufferSize() const;
 
-    HAL_Driver *driver();
+    Driver *driver();
     SelectedDriver selectedDriver() const;
 
     QString startSequence() const;
@@ -165,7 +165,7 @@ public Q_SLOTS:
 private Q_SLOTS:
     void readFrames();
     void clearTempBuffer();
-    void setDriver(HAL_Driver *driver);
+    void setDriver(Driver *driver);
     void onDataReceived(const QByteArray &data);
 
 private:
@@ -176,7 +176,7 @@ private:
     bool m_enableCrc;
     bool m_writeEnabled;
     int m_maxBufferSize;
-    HAL_Driver *m_driver;
+    Driver *m_driver;
     QByteArray m_dataBuffer;
     quint64 m_receivedBytes;
     QString m_startSequence;

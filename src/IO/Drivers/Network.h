@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include <IO/HAL_Driver.h>
+#include <IO/Driver.h>
 
 namespace IO
 {
@@ -33,7 +33,7 @@ namespace Drivers
  *
  * Serial Studio "driver" class to interact with UDP/TCP network ports.
  */
-class Network : public HAL_Driver
+class Network : public IO::Driver
 {
     // clang-format off
     Q_OBJECT

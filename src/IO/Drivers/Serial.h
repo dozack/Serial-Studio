@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include <IO/HAL_Driver.h>
+#include <IO/Driver.h>
 
 namespace IO
 {
@@ -32,7 +32,7 @@ namespace Drivers
  * @brief The Serial class
  * Serial Studio driver class to interact with serial port devices.
  */
-class Serial : public HAL_Driver
+class Serial : public IO::Driver
 {
     // clang-format off
     Q_OBJECT

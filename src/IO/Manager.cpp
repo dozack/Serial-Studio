@@ -146,7 +146,7 @@ int IO::Manager::maxBufferSize() const
  * @warning you need to check this pointer before using it, it can have a @c Q_NULLPTR
  *          value during normal operations.
  */
-IO::HAL_Driver *IO::Manager::driver()
+IO::Driver *IO::Manager::driver()
 {
     return m_driver;
 }
@@ -261,7 +261,7 @@ void IO::Manager::connectDevice()
         // Open device
         if (driver()->open(mode))
         {
-            connect(driver(), &IO::HAL_Driver::dataReceived, this,
+            connect(driver(), &IO::Driver::dataReceived, this,
                     &IO::Manager::onDataReceived);
         }
 
@@ -282,9 +282,9 @@ void IO::Manager::disconnectDriver()
     if (deviceAvailable())
     {
         // Disconnect device signals/slots
-        disconnect(driver(), &IO::HAL_Driver::dataReceived, this,
+        disconnect(driver(), &IO::Driver::dataReceived, this,
                    &IO::Manager::onDataReceived);
-        disconnect(driver(), &IO::HAL_Driver::configurationChanged, this,
+        disconnect(driver(), &IO::Driver::configurationChanged, this,
                    &IO::Manager::configurationChanged);
 
         // Close driver device
@@ -502,10 +502,10 @@ void IO::Manager::clearTempBuffer()
  * Changes the target device pointer. Deletion should be handled by the interface
  * implementation, not by this class.
  */
-void IO::Manager::setDriver(HAL_Driver *driver)
+void IO::Manager::setDriver(Driver *driver)
 {
     if (driver)
-        connect(driver, &IO::HAL_Driver::configurationChanged, this,
+        connect(driver, &IO::Driver::configurationChanged, this,
                 &IO::Manager::configurationChanged);
 
     m_driver = driver;

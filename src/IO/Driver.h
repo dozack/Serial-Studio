@@ -27,7 +27,7 @@
 namespace IO
 {
 /**
- * @brief The HAL_Driver class
+ * @brief The Driver class
  *
  * Abstract class that defines common I/O and data access functions for different types of
  * devices. I/O drivers (e.g. serial port & network) are sub-classes of this class.
@@ -35,7 +35,7 @@ namespace IO
  * This allows the rest of the I/O module to interact with a wide range of devices and
  * protocols without the need of understanding protocol-specific implementation details.
  */
-class HAL_Driver : public QObject
+class Driver : public QObject
 {
     Q_OBJECT
 
