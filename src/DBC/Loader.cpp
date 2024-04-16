@@ -27,7 +27,12 @@
 
 #include <Misc/Utilities.h>
 
-DBC::Loader::Loader() { }
+DBC::Loader::Loader()
+{
+    auto path = QSettings().value("can_dbc_location", "").toString();
+
+    dbcFileLoad(path);
+}
 
 DBC::Loader &DBC::Loader::instance()
 {
@@ -89,6 +94,8 @@ void DBC::Loader::dbcFileLoad(const QString &path)
         m_dbcPath = QString();
         m_dbcContent = QList<QCanMessageDescription>();
 
+        QSettings().setValue("can_dbc_location", "");
+
         Q_EMIT dbcFileChanged();
     }
 
@@ -100,10 +107,15 @@ void DBC::Loader::dbcFileLoad(const QString &path)
         return;
     }
 
-    qWarning().noquote() << parser.warnings();
+    Q_FOREACH (auto warning, parser.warnings())
+    {
+        qWarning().noquote() << warning;
+    }
 
     m_dbcPath = path;
     m_dbcContent = parser.messageDescriptions();
+
+    QSettings().setValue("can_dbc_location", m_dbcPath);
 
     Q_EMIT dbcFileChanged();
 }

@@ -100,6 +100,7 @@ target_sources(${PROJECT_NAME}
     ${CMAKE_CURRENT_LIST_DIR}/src/Misc/Translator.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/Misc/Utilities.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/Plugins/Server.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/Plugins/CanProcessor.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/Project/CodeEditor.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/Project/Model.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Dashboard.cpp

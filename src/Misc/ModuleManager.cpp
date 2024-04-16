@@ -49,6 +49,7 @@
 #include <Misc/ModuleManager.h>
 
 #include <Plugins/Server.h>
+#include <Plugins/CanProcessor.h>
 
 #include <UI/Dashboard.h>
 #include <UI/DashboardWidget.h>
@@ -168,6 +169,7 @@ void Misc::ModuleManager::initializeQmlInterface()
     // Initialize modules
     auto csvExport = &CSV::Export::instance();
     auto csvPlayer = &CSV::Player::instance();
+    auto dbcLoader = &DBC::Loader::instance();
     auto ioManager = &IO::Manager::instance();
     auto ioConsole = &IO::Console::instance();
     auto uiDashboard = &UI::Dashboard::instance();
@@ -183,7 +185,7 @@ void Misc::ModuleManager::initializeQmlInterface()
     auto miscTimerEvents = &Misc::TimerEvents::instance();
     auto miscThemeManager = &Misc::ThemeManager::instance();
     auto projectCodeEditor = &Project::CodeEditor::instance();
-    auto dbcLoader = &DBC::Loader::instance();
+    auto canProcessor = &Plugins::CanProcessor::instance();
 
 #ifndef DISABLE_QSU
     // Initialize third-party modules
@@ -236,6 +238,7 @@ void Misc::ModuleManager::initializeQmlInterface()
     c->setContextProperty("Cpp_IO_CanBus", ioCanBus);
     c->setContextProperty("Cpp_CSV_Export", csvExport);
     c->setContextProperty("Cpp_CSV_Player", csvPlayer);
+    c->setContextProperty("Cpp_DBC_Loader", dbcLoader);
     c->setContextProperty("Cpp_IO_Console", ioConsole);
     c->setContextProperty("Cpp_IO_Manager", ioManager);
     c->setContextProperty("Cpp_IO_Network", ioNetwork);
@@ -243,6 +246,7 @@ void Misc::ModuleManager::initializeQmlInterface()
     c->setContextProperty("Cpp_Project_Model", projectModel);
     c->setContextProperty("Cpp_JSON_Generator", jsonGenerator);
     c->setContextProperty("Cpp_Plugins_Bridge", pluginsBridge);
+    c->setContextProperty("Cpp_CanProcessor", canProcessor);
     c->setContextProperty("Cpp_Misc_MacExtras", miscMacExtras);
     c->setContextProperty("Cpp_Misc_Utilities", miscUtilities);
     c->setContextProperty("Cpp_ThemeManager", miscThemeManager);
@@ -251,7 +255,6 @@ void Misc::ModuleManager::initializeQmlInterface()
     c->setContextProperty("Cpp_Project_CodeEditor", projectCodeEditor);
     c->setContextProperty("Cpp_UpdaterEnabled", autoUpdaterEnabled());
     c->setContextProperty("Cpp_ModuleManager", this);
-    c->setContextProperty("Cpp_DBC_Loader", dbcLoader);
 
     // Register app info with QML
     c->setContextProperty("Cpp_AppName", qApp->applicationName());
