@@ -112,6 +112,11 @@ QString JSON::Dataset::title() const
     return m_title;
 }
 
+QString JSON::Dataset::tag() const
+{
+    return m_tag;
+}
+
 /**
  * @return The value/reading of this dataset
  */
@@ -171,6 +176,7 @@ bool JSON::Dataset::read(const QJsonObject &object)
         m_alarm = object.value("alarm").toDouble();
         m_graph = object.value("graph").toBool();
         m_title = object.value("title").toString();
+        m_tag = object.value("tag").toString();
         m_value = object.value("value").toString();
         m_units = object.value("units").toString();
         m_widget = object.value("widget").toString();

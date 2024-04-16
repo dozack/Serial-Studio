@@ -23,7 +23,8 @@
 #include "Loader.h"
 
 #include <Project/Model.h>
-#include <IO/Manager.h>
+#include <JSON/Generator.h>
+#include <IO/Drivers/CanBus.h>
 
 #include <Misc/Utilities.h>
 
@@ -32,6 +33,11 @@ DBC::Loader::Loader()
     auto path = QSettings().value("can_dbc_location", "").toString();
 
     dbcFileLoad(path);
+
+    connect(&JSON::Generator::instance(), &JSON::Generator::jsonFileMapChanged, this,
+            &DBC::Loader::onJsonFileMapChanged);
+
+    onJsonFileMapChanged();
 }
 
 DBC::Loader &DBC::Loader::instance()
@@ -62,11 +68,6 @@ QString DBC::Loader::dbcFilePath() const
     return "";
 }
 
-QList<QCanMessageDescription> DBC::Loader::dbcContent() const
-{
-    return m_dbcContent;
-}
-
 void DBC::Loader::dbcFileLoad()
 {
     // clang-format off
@@ -76,7 +77,7 @@ void DBC::Loader::dbcFileLoad()
                                              tr("DBC files") + " (*.dbc)");
     // clang-format on
 
-    if (!file.isEmpty())
+    if (!file.isEmpty() && (file != m_dbcPath))
     {
         dbcFileLoad(file);
     }
@@ -84,7 +85,7 @@ void DBC::Loader::dbcFileLoad()
 
 void DBC::Loader::dbcFileLoad(const QString &path)
 {
-    if (path == m_dbcPath)
+    if (path.isEmpty() || (path == m_dbcPath))
     {
         return;
     }
@@ -92,9 +93,8 @@ void DBC::Loader::dbcFileLoad(const QString &path)
     if (!m_dbcPath.isEmpty())
     {
         m_dbcPath = QString();
-        m_dbcContent = QList<QCanMessageDescription>();
 
-        QSettings().setValue("can_dbc_location", "");
+        QSettings().setValue("can_dbc_location", m_dbcPath);
 
         Q_EMIT dbcFileChanged();
     }
@@ -112,10 +112,43 @@ void DBC::Loader::dbcFileLoad(const QString &path)
         qWarning().noquote() << warning;
     }
 
-    m_dbcPath = path;
     m_dbcContent = parser.messageDescriptions();
+    m_dbcPath = path;
 
     QSettings().setValue("can_dbc_location", m_dbcPath);
 
     Q_EMIT dbcFileChanged();
+}
+
+void DBC::Loader::onJsonFileMapChanged()
+{
+    auto dbcNew = QList<QCanMessageDescription>();
+    auto json = JSON::Generator::instance().json();
+    auto added = QStringList();
+
+    auto groups = json.value("groups").toArray();
+    Q_FOREACH (auto group, groups)
+    {
+        auto datasets = group.toObject().value("datasets").toArray();
+        Q_FOREACH (auto dataset, datasets)
+        {
+            auto tag = dataset.toObject().value("tag").toString();
+            if (!added.contains(tag))
+            {
+                Q_FOREACH (auto messageDesc, m_dbcContent)
+                {
+                    auto id = static_cast<quint32>(messageDesc.uniqueId());
+                    auto newTag = QString("0x%1").arg(id, 0, 16);
+
+                    if (tag == newTag)
+                    {
+                        dbcNew.append(messageDesc);
+                        added.append(newTag);
+                    }
+                }
+            }
+        }
+    }
+
+    IO::Drivers::CanBus::instance().setFrameProcessor(dbcNew);
 }

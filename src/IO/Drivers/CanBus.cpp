@@ -17,6 +17,8 @@ IO::Drivers::CanBus::CanBus()
     connect(this, &IO::Drivers::CanBus::interfaceIndexChanged, 
             this, &IO::Drivers::CanBus::configurationChanged);
     /* clang-format on */
+
+    m_processor.setUniqueIdDescription(QCanDbcFileParser::uniqueIdDescription());
 }
 
 IO::Drivers::CanBus::~CanBus()
@@ -223,6 +225,11 @@ void IO::Drivers::CanBus::setInterfaceIndex(const qsizetype interfaceIndex)
     Q_EMIT interfaceIndexChanged();
 }
 
+void IO::Drivers::CanBus::setFrameProcessor(const QList<QCanMessageDescription> &messages)
+{
+    m_processor.setMessageDescriptions(messages);
+}
+
 void IO::Drivers::CanBus::onErrorOccurred(QCanBusDevice::CanBusError error)
 {
     Q_UNUSED(error)
@@ -232,17 +239,34 @@ void IO::Drivers::CanBus::onFramesReceived()
 {
     Q_ASSERT(interface());
 
-    auto packet = QByteArray();
-    auto stream = QDataStream(&packet, QIODevice::WriteOnly);
+    auto packet = QString();
 
     while (interface()->framesAvailable() > 0)
     {
-        stream << interface()->readFrame();
+        auto frame = interface()->readFrame();
+        auto result = m_processor.parseFrame(frame);
+
+        if (result.signalValues.isEmpty())
+        {
+            continue;
+        }
+
+        packet.append(IO::Manager::instance().startSequence());
+        packet.append(QString("0x%1").arg(static_cast<quint32>(result.uniqueId), 0, 16));
+
+        Q_FOREACH (auto signal, result.signalValues)
+        {
+            packet.append(IO::Manager::instance().separatorSequence());
+            packet.append(signal.toString());
+        }
+
+        packet.append(IO::Manager::instance().finishSequence());
+        packet.append("\n");
     }
 
     if (!packet.isEmpty())
     {
-        Q_EMIT dataReceived(packet);
+        Q_EMIT dataReceived(packet.toUtf8());
     }
 }
 

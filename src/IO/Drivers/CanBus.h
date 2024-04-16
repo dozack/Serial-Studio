@@ -85,6 +85,7 @@ public Q_SLOTS:
     void listAvailableDevices();
     void disconnectDevice();
     void setInterfaceIndex(const qsizetype interfaceIndex);
+    void setFrameProcessor(const QList<QCanMessageDescription> &messages);
 
 private Q_SLOTS:
     void onErrorOccurred(QCanBusDevice::CanBusError);
@@ -98,6 +99,7 @@ private:
     QCanBusDevice *m_interface;
     qsizetype m_interfaceIndex;
     QStringList m_interfaceList;
+    QCanFrameProcessor m_processor;
     QList<QCanBusDeviceInfo> m_deviceInfo;
 };
 

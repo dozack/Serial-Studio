@@ -91,6 +91,18 @@ Widgets.Window {
         }
 
         //
+        // Dataset tag
+        //
+        Label {
+            text: qsTr("Tag:")
+        } TextField {
+            Layout.fillWidth: true
+            text: Cpp_Project_Model.datasetTag(group, dataset)
+            placeholderText: qsTr("Frame tag assigned to this dataset")
+            onTextChanged: Cpp_Project_Model.setDatasetTag(group, dataset, text)
+        }
+
+        //
         // Dataset units
         //
         Label {

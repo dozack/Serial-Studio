@@ -59,6 +59,9 @@ public Q_SLOTS:
     void dbcFileLoad();
     void dbcFileLoad(const QString &path);
 
+private Q_SLOTS:
+    void onJsonFileMapChanged();
+
 private:
     QList<QCanMessageDescription> m_dbcContent;
     QString m_dbcPath;

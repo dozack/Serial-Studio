@@ -79,6 +79,7 @@ public:
     double max() const;
     double alarm() const;
     QString title() const;
+    QString tag() const;
     QString value() const;
     QString units() const;
     QString widget() const;
@@ -95,6 +96,7 @@ private:
     bool m_graph;
 
     QString m_title;
+    QString m_tag;
     QString m_value;
     QString m_units;
     QString m_widget;

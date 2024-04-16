@@ -49,7 +49,6 @@
 #include <Misc/ModuleManager.h>
 
 #include <Plugins/Server.h>
-#include <Plugins/CanProcessor.h>
 
 #include <UI/Dashboard.h>
 #include <UI/DashboardWidget.h>
@@ -185,7 +184,6 @@ void Misc::ModuleManager::initializeQmlInterface()
     auto miscTimerEvents = &Misc::TimerEvents::instance();
     auto miscThemeManager = &Misc::ThemeManager::instance();
     auto projectCodeEditor = &Project::CodeEditor::instance();
-    auto canProcessor = &Plugins::CanProcessor::instance();
 
 #ifndef DISABLE_QSU
     // Initialize third-party modules
@@ -246,7 +244,6 @@ void Misc::ModuleManager::initializeQmlInterface()
     c->setContextProperty("Cpp_Project_Model", projectModel);
     c->setContextProperty("Cpp_JSON_Generator", jsonGenerator);
     c->setContextProperty("Cpp_Plugins_Bridge", pluginsBridge);
-    c->setContextProperty("Cpp_CanProcessor", canProcessor);
     c->setContextProperty("Cpp_Misc_MacExtras", miscMacExtras);
     c->setContextProperty("Cpp_Misc_Utilities", miscUtilities);
     c->setContextProperty("Cpp_ThemeManager", miscThemeManager);

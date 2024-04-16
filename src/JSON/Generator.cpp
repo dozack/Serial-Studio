@@ -254,12 +254,18 @@ void JSON::Generator::readData(const QByteArray &data)
             for (int j = 0; j < datasets.count(); ++j)
             {
                 auto dataset = datasets.at(j).toObject();
+                auto tag = dataset.value("tag").toString();
                 auto index = dataset.value("index").toInt();
 
-                if (index <= fields.count() && index >= 1)
+                if (!(fields.count() > 0) || (fields.at(0) != tag))
+                {
+                    continue;
+                }
+
+                if (index < fields.count() && index >= 1)
                 {
                     dataset.remove("value");
-                    dataset.insert("value", QJsonValue(fields.at(index - 1)));
+                    dataset.insert("value", QJsonValue(fields.at(index)));
                     datasets.removeAt(j);
                     datasets.insert(j, dataset);
                 }

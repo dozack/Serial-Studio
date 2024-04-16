@@ -125,6 +125,7 @@ public:
     Q_INVOKABLE bool datasetFftPlot(const int group, const int dataset) const;
     Q_INVOKABLE bool datasetLogPlot(const int group, const int dataset) const;
     Q_INVOKABLE QString datasetTitle(const int group, const int dataset) const;
+    Q_INVOKABLE QString datasetTag(const int group, const int dataset) const;
     Q_INVOKABLE QString datasetUnits(const int group, const int dataset) const;
     Q_INVOKABLE QString datasetWidget(const int group, const int dataset) const;
     Q_INVOKABLE int datasetWidgetIndex(const int group, const int dataset) const;
@@ -157,6 +158,7 @@ public Q_SLOTS:
     void deleteDataset(const int group, const int dataset);
     void setDatasetWidget(const int group, const int dataset, const int widgetId);
     void setDatasetTitle(const int group, const int dataset, const QString &title);
+    void setDatasetTag(const int group, const int dataset, const QString &tag);
     void setDatasetUnits(const int group, const int dataset, const QString &units);
     void setDatasetIndex(const int group, const int dataset, const int frameIndex);
     void setDatasetLED(const int group, const int dataset, const bool generateLED);
@@ -177,7 +179,7 @@ private Q_SLOTS:
     void onDatasetChanged(const int group, const int dataset);
 
 private:
-    int nextDatasetIndex();
+    int nextDatasetIndex(const QString &tag = QString());
 
 private:
     QString m_title;

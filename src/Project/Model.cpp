@@ -336,6 +336,7 @@ bool Project::Model::saveJsonFile()
             dataset.insert("fft", datasetFftPlot(i, j));
             dataset.insert("log", datasetLogPlot(i, j));
             dataset.insert("title", datasetTitle(i, j));
+            dataset.insert("tag", datasetTag(i, j));
             dataset.insert("units", datasetUnits(i, j));
             dataset.insert("graph", datasetGraph(i, j));
             dataset.insert("widget", datasetWidget(i, j));
@@ -515,6 +516,17 @@ bool Project::Model::datasetLogPlot(const int group, const int dataset) const
 QString Project::Model::datasetTitle(const int group, const int dataset) const
 {
     return getDataset(group, dataset).title();
+}
+
+/**
+ * Returns the tag of the specified dataset.
+ *
+ * @param group   index of the group in which the dataset belongs
+ * @param dataset index of the dataset
+ */
+QString Project::Model::datasetTag(const int group, const int dataset) const
+{
+    return getDataset(group, dataset).tag();
 }
 
 /**
@@ -734,6 +746,7 @@ void Project::Model::openJsonFile(const QString &path)
             setDatasetLogPlot(g, d, dataset.value("log").toBool());
             setDatasetGraph(g, d, dataset.value("graph").toBool());
             setDatasetTitle(g, d, dataset.value("title").toString());
+            setDatasetTag(g, d, dataset.value("tag").toString());
             setDatasetUnits(g, d, dataset.value("units").toString());
             setDatasetWidgetData(g, d, dataset.value("widget").toString());
 
@@ -1114,6 +1127,30 @@ void Project::Model::setDatasetTitle(const int group, const int dataset,
     if (set.m_title != title)
     {
         set.m_title = title;
+        grp.m_datasets.replace(dataset, set);
+        m_groups.replace(group, grp);
+
+        // Update UI
+        Q_EMIT datasetChanged(group, dataset);
+    }
+}
+
+/**
+ * Updates the @a tag of the given @a dataset.
+ *
+ * @param group   index of the group in which the dataset belongs
+ * @param dataset index of the dataset
+ */
+void Project::Model::setDatasetTag(const int group, const int dataset, const QString &tag)
+{
+    // Get dataset & group
+    auto grp = getGroup(group);
+    auto set = getDataset(group, dataset);
+
+    // Update dataset & group
+    if (set.m_tag != tag)
+    {
+        set.m_tag = tag;
         grp.m_datasets.replace(dataset, set);
         m_groups.replace(group, grp);
 
@@ -1507,8 +1544,10 @@ void Project::Model::onDatasetChanged(const int group, const int dataset)
  *
  * This function is used when registering new datasets, so that
  * the user does not need to manually specify dataset indexes.
+ *
+ * @param tag tag linked to dataset
  */
-int Project::Model::nextDatasetIndex()
+int Project::Model::nextDatasetIndex(const QString &tag)
 {
     int maxIndex = 1;
     for (int i = 0; i < groupCount(); ++i)
@@ -1516,8 +1555,10 @@ int Project::Model::nextDatasetIndex()
         for (int j = 0; j < datasetCount(i); ++j)
         {
             auto dataset = getDataset(i, j);
-            if (dataset.m_index >= maxIndex)
+            if ((dataset.m_tag == tag) && (dataset.m_index >= maxIndex))
+            {
                 maxIndex = dataset.m_index + 1;
+            }
         }
     }
 
