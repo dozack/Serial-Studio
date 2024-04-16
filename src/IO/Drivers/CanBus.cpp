@@ -228,17 +228,21 @@ void IO::Drivers::CanBus::onErrorOccurred(QCanBusDevice::CanBusError error)
     Q_UNUSED(error)
 }
 
-#include <iostream>
-
 void IO::Drivers::CanBus::onFramesReceived()
 {
-    Q_ASSERT(interface() != Q_NULLPTR);
+    Q_ASSERT(interface());
+
+    auto packet = QByteArray();
+    auto stream = QDataStream(&packet, QIODevice::WriteOnly);
 
     while (interface()->framesAvailable() > 0)
     {
-        auto frame = interface()->readFrame().toString().toStdString() + "\n";
+        stream << interface()->readFrame();
+    }
 
-        IO::Manager::instance().processPayload(QByteArray::fromStdString(frame));
+    if (!packet.isEmpty())
+    {
+        Q_EMIT dataReceived(packet);
     }
 }
 

@@ -30,6 +30,10 @@
 #include <QCanBus>
 #include <QCanBusDevice>
 #include <QCanDbcFileParser>
+#include <QCanFrameProcessor>
+#include <QCanUniqueIdDescription>
+#include <QCanMessageDescription>
+#include <QCanSignalDescription>
 #include <QDateTime>
 #include <QDesktopServices>
 #include <QDialog>
