@@ -57,6 +57,11 @@ QString DBC::Loader::dbcFilePath() const
     return "";
 }
 
+QList<QCanMessageDescription> DBC::Loader::dbcContent() const
+{
+    return m_dbcContent;
+}
+
 void DBC::Loader::dbcFileLoad()
 {
     // clang-format off
@@ -82,6 +87,9 @@ void DBC::Loader::dbcFileLoad(const QString &path)
     if (!m_dbcPath.isEmpty())
     {
         m_dbcPath = QString();
+        m_dbcContent = QList<QCanMessageDescription>();
+
+        Q_EMIT dbcFileChanged();
     }
 
     auto parser = QCanDbcFileParser();
@@ -92,17 +100,10 @@ void DBC::Loader::dbcFileLoad(const QString &path)
         return;
     }
 
-    auto warnings = parser.warnings();
-
-    if (!warnings.isEmpty())
-    {
-        for (auto warning : warnings)
-        {
-            qWarning().noquote() << warning;
-        }
-    }
+    qWarning().noquote() << parser.warnings();
 
     m_dbcPath = path;
+    m_dbcContent = parser.messageDescriptions();
 
     Q_EMIT dbcFileChanged();
 }

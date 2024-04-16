@@ -32,7 +32,8 @@ class Loader : public QObject
     // clang-format off
     Q_OBJECT
     Q_PROPERTY(QString dbcFileName 
-               READ dbcFileName)
+               READ dbcFileName
+               NOTIFY dbcFileChanged)
     Q_PROPERTY(QString dbcFilePath 
                READ dbcFilePath
                NOTIFY dbcFileChanged)
@@ -50,15 +51,16 @@ private:
 
 public:
     static Loader &instance();
-
     QString dbcFileName() const;
     QString dbcFilePath() const;
+    QList<QCanMessageDescription> dbcContent() const;
 
 public Q_SLOTS:
     void dbcFileLoad();
     void dbcFileLoad(const QString &path);
 
 private:
+    QList<QCanMessageDescription> m_dbcContent;
     QString m_dbcPath;
 };
 
