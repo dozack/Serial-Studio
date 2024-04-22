@@ -1,4 +1,10 @@
 {
+    "cmake.buildDirectory": "${workspaceFolder}/build/${buildType}/",
+    "cmake.enabledOutputParsers": [
+        "cmake",
+        "gcc",
+        "gnuld"
+    ],
     "cmake.configureSettings": {
         "QT_INSTALL_DIR": "${env:QT_SDK_PATH}"
     },
@@ -6,5 +12,5 @@
         "-Wno-dev"
     ],
     "cmake.parallelJobs": 0,
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
 }

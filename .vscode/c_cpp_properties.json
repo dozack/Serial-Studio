@@ -9,7 +9,7 @@
       "compilerPath": "/usr/bin/g++",
       "intelliSenseMode": "linux-gcc-x64",
       "configurationProvider": "ms-vscode.cmake-tools",
-      "compileCommands": "${workspaceFolder}/build/compile_commands.json"
+      "compileCommands": "${command:cmake.buildDirectory}/compile_commands.json"
     }
   ],
   "version": 4
