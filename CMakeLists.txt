@@ -8,7 +8,7 @@ set(CMAKE_C_STANDARD            11 )
 set(CMAKE_C_STANDARD_REQUIRED   ON )
 set(CMAKE_C_EXTENSIONS          OFF)
 
-set(CMAKE_CXX_STANDARD          11 )
+set(CMAKE_CXX_STANDARD          17 )
 set(CMAKE_CXX_STANDARD_REQUIRED ON )
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
@@ -20,16 +20,18 @@ find_package(Qt6
     REQUIRED 
     PATHS ${QT_INSTALL_DIR}
     COMPONENTS 
-    Core
     Concurrent
+    Core
     Core5Compat
     Gui
     Network
-    PrintSupport
-    Quick
-    QuickControls2
     OpenGL
     OpenGLWidgets
+    Positioning
+    PrintSupport
+    Qml
+    Quick
+    QuickControls2
     SerialBus
     SerialPort
     Svg
@@ -46,14 +48,14 @@ set(CMAKE_AUTORCC ON)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/QMapControl)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/QRealFourier)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/QSourceHighlite)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/qwt)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/qtcsv)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/qwt)
 
 file(GLOB_RECURSE SERIALSTUDIO_MOC_HDRS ${CMAKE_CURRENT_LIST_DIR}/src/**/*.h)
 
-qt_add_resources(SERIALSTUDIO_QRC_SRCS ${CMAKE_CURRENT_LIST_DIR}/assets/Resources.qrc)
-
 qt_add_executable(${PROJECT_NAME})
+
+qt_add_resources(${PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/assets/Resources.qrc)
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE 
@@ -71,15 +73,9 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/Common
     )
 
-target_precompile_headers(${PROJECT_NAME}
-    PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/src/DataTypes.h
-    )
-
 target_sources(${PROJECT_NAME}
     PRIVATE
-    ${SERIALSTUDIO_MOC_HDRS}
-    ${SERIALSTUDIO_QRC_SRCS}
+    ${CMAKE_CURRENT_LIST_DIR}/assets/Resources.qrc
     ${CMAKE_CURRENT_LIST_DIR}/src/CSV/Export.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/CSV/Player.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/DBC/Loader.cpp
@@ -93,6 +89,7 @@ target_sources(${PROJECT_NAME}
     ${CMAKE_CURRENT_LIST_DIR}/src/JSON/Frame.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/JSON/Generator.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/JSON/Group.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/Misc/MacExtras.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/Misc/ModuleManager.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/Misc/ThemeManager.cpp
@@ -115,39 +112,45 @@ target_sources(${PROJECT_NAME}
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/Compass.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/DataGroup.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/FFTPlot.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/GPS.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/Gauge.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/GPS.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/Gyroscope.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/LEDPanel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/MultiPlot.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/Plot.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/UI/Widgets/Terminal.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
+    ${SERIALSTUDIO_MOC_HDRS}
+    )
+
+target_precompile_headers(${PROJECT_NAME}
+    PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/src/DataTypes.h
     )
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE 
+    crypto
+    qmapcontrol
+    qrealfourier
+    qsourcehighlite
+    Qt::Concurrent
     Qt::Core
+    Qt::Core5Compat
     Qt::Gui
     Qt::Network
+    Qt::Positioning
     Qt::PrintSupport
+    Qt::Qml
     Qt::Quick
     Qt::QuickControls2
     Qt::SerialBus
     Qt::SerialPort
     Qt::Svg
+    Qt::Svg
     Qt::Widgets
     Qt::Xml
-    Qt::Core5Compat
-    Qt::Concurrent
-    Qt::PrintSupport
-    Qt::Svg
-    qwt
     qtcsv
-    qmapcontrol
-    qrealfourier
-    qsourcehighlite
-    crypto
+    qwt
     ssl
     )
 
