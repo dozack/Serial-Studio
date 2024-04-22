@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
-add_library(qmapcontrol STATIC)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+add_library(qmapcontrol SHARED)
 
 target_include_directories(qmapcontrol 
     PUBLIC 

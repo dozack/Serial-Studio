@@ -1,11 +1,22 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
-add_library(qsourcehighlite STATIC)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-target_include_directories(qsourcehighlite PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+add_library(qsourcehighlite SHARED)
+
+target_include_directories(qsourcehighlite 
+    PUBLIC 
+    ${CMAKE_CURRENT_LIST_DIR}
+    )
 
 file(GLOB QSOURCEHIGHLITE_SRCS ${CMAKE_CURRENT_LIST_DIR}/*.cpp)
 
-target_sources(qsourcehighlite PRIVATE ${QSOURCEHIGHLITE_SRCS})
+target_sources(qsourcehighlite 
+    PRIVATE 
+    ${QSOURCEHIGHLITE_SRCS}
+    )
 
-target_link_libraries(qsourcehighlite PRIVATE Qt::Gui)
+target_link_libraries(qsourcehighlite 
+    PRIVATE 
+    Qt::Gui
+    )
