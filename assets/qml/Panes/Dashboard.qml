@@ -22,13 +22,17 @@
 
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 
 import "../Widgets" as Widgets
 import "../Dashboard" as DashboardItems
 
 Item {
     id: root
+
+    function toggleViewOptions()
+    {
+        viewOptions.visible ? viewOptions.hide() : viewOptions.show()
+    }
 
     //
     // Main layout
@@ -50,8 +54,12 @@ Item {
             // View options window
             //
             DashboardItems.ViewOptions {
+                id: viewOptions
+
                 Layout.fillHeight: true
-                Layout.minimumWidth: 280
+                Layout.minimumWidth: displayedWidth
+                Layout.maximumWidth: displayedWidth
+                Layout.leftMargin: viewOptMargin
                 onWidgetSizeChanged:(maxSize) => widgetGrid.maxSize = maxSize
             }
 

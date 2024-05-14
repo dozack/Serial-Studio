@@ -307,6 +307,7 @@ FramelessWindow.CustomWindow {
                 dashboardChecked: root.dashboardVisible
                 onProjectEditorClicked: app.projectEditorWindow.show()
                 onSetupClicked: setup.visible ? setup.hide() : setup.show()
+                onViewOptionsClicked: dashboard.toggleViewOptions()
 
                 onDashboardClicked: {
                     if (Cpp_UI_Dashboard.available) {

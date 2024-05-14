@@ -46,6 +46,7 @@ Control {
     signal setupClicked()
     signal consoleClicked()
     signal dashboardClicked()
+    signal viewOptionsClicked()
     signal projectEditorClicked()
 
     //
@@ -212,6 +213,41 @@ Control {
             palette.window: Cpp_ThemeManager.toolbarGradient1
             onCheckedChanged: Cpp_Misc_MacExtras.setDashboardChecked(checked)
             onEnabledChanged: Cpp_Misc_MacExtras.setDashboardEnabled(enabled)
+
+            background: Rectangle {
+                radius: 3
+                border.width: 1
+                color: "transparent"
+                border.color: "#040600"
+                opacity: parent.checked ? 0.2 : 0.0
+
+                Rectangle {
+                    border.width: 1
+                    color: "#626262"
+                    anchors.fill: parent
+                    border.color: "#c2c2c2"
+                    radius: parent.radius - 1
+                    anchors.margins: parent.border.width
+                }
+            }
+        }
+
+        Button {
+            id: viewOptionsBt
+
+            flat: true
+            icon.width: 24
+            icon.height: 24
+            Layout.fillHeight: true
+            opacity: enabled ? 1 : 0.5
+            onClicked: root.viewOptionsClicked()
+            enabled: Cpp_UI_Dashboard.available
+            text: qsTr("View Options") + _btSpacer
+            icon.source: "qrc:/icons/dashboard.svg"
+            icon.color: Cpp_ThemeManager.menubarText
+            palette.buttonText: Cpp_ThemeManager.menubarText
+            palette.button: Cpp_ThemeManager.toolbarGradient1
+            palette.window: Cpp_ThemeManager.toolbarGradient1
 
             background: Rectangle {
                 radius: 3

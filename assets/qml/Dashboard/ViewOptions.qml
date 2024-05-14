@@ -31,6 +31,33 @@ Widgets.Window {
     id: root
 
     //
+    // Custom properties
+    //
+    property int viewOptMargin: 0
+    property int displayedWidth: 280 + app.spacing * 1.5
+
+    //
+    // Displays the setup panel
+    //
+    function show() {
+        viewOptMargin = 0
+    }
+
+    //
+    // Hides the setup panel
+    //
+    function hide() {
+        viewOptMargin = -1 * displayedWidth
+    }
+
+    //
+    // Animations
+    //
+    visible: viewOptMargin > -1 * displayedWidth
+    Behavior on viewOptMargin {NumberAnimation{}}
+
+
+    //
     // Window properties
     //
     gradient: true
@@ -84,6 +111,8 @@ Widgets.Window {
     // Put all items inside a scrollview
     //
     ScrollView {
+        id: base
+
         clip: true
         contentWidth: -1
         anchors.fill: parent
