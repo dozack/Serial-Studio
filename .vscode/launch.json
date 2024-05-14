@@ -1,53 +1,15 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "(gdb) Launch",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${command:cmake.launchTargetPath}",
-      "args": [],
-      "stopAtEntry": true,
-      "cwd": "${workspaceFolder}",
-      "miDebuggerPath": "/usr/bin/gdb",
-      "additionalSOLibSearchPath": "/lib;/usr/lib;/usr/lib/x86_64-linux-gnu/;${env:QT_SDK_PATH}/lib",
-      "visualizerFile": "/home/dolensky/.config/Code/User/workspaceStorage/726fce3fda9912a7ac762b3884c031ef/tonka3000.qtvsctools/qt.natvis.xml",
-      "showDisplayString": true,
-      "environment": [
-        {
-          "name": "PATH",
-          "value": "$PATH:${command:cmake.launchTargetDirectory}:${env:QT_SDK_PATH}/bin"
-        }
-      ],
-      "externalConsole": false,
-      "MIMode": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        },
-        {
-          "description": "Set Disassembly Flavor to Intel",
-          "text": "-gdb-set disassembly-flavor intel",
-          "ignoreFailures": true
-        },
-        {
-          "text": "-gdb-set stop-on-solib-events 0",
-          "ignoreFailures": true
-        }
-      ]
-    },
     {
       "type": "lldb",
       "request": "launch",
       "name": "Launch",
       "program": "${command:cmake.launchTargetPath}",
-      "args": [],
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}",
+      "initCommands": [
+        "command source .lldbinit"
+      ]
     }
   ]
 }
