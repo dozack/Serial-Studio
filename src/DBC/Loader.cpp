@@ -77,7 +77,7 @@ void DBC::Loader::dbcFileLoad()
                                              tr("DBC files") + " (*.dbc)");
     // clang-format on
 
-    if (!file.isEmpty() && (file != m_dbcPath))
+    if (!file.isEmpty())
     {
         dbcFileLoad(file);
     }
@@ -85,7 +85,7 @@ void DBC::Loader::dbcFileLoad()
 
 void DBC::Loader::dbcFileLoad(const QString &path)
 {
-    if (path.isEmpty() || (path == m_dbcPath))
+    if (path.isEmpty())
     {
         return;
     }
@@ -95,6 +95,9 @@ void DBC::Loader::dbcFileLoad(const QString &path)
         m_dbcPath = QString();
 
         QSettings().setValue("can_dbc_location", m_dbcPath);
+
+        IO::Drivers::CanBus::instance().setFrameProcessor(
+            QList<QCanMessageDescription>());
 
         Q_EMIT dbcFileChanged();
     }
@@ -116,6 +119,8 @@ void DBC::Loader::dbcFileLoad(const QString &path)
     m_dbcPath = path;
 
     QSettings().setValue("can_dbc_location", m_dbcPath);
+
+    IO::Drivers::CanBus::instance().setFrameProcessor(m_dbcContent);
 
     Q_EMIT dbcFileChanged();
 }
