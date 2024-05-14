@@ -24,7 +24,7 @@ IO::Drivers::CanBus::CanBus()
 IO::Drivers::CanBus::~CanBus()
 {
     close();
-    disconnectDevice();
+    disconnectDevice();  
 }
 
 IO::Drivers::CanBus &IO::Drivers::CanBus::instance()
@@ -211,8 +211,7 @@ void IO::Drivers::CanBus::disconnectDevice()
     if (interface())
     {
         interface()->disconnect(this);
-
-        delete m_interface;
+        interface()->deleteLater();
     }
 
     m_interface = Q_NULLPTR;
@@ -227,7 +226,29 @@ void IO::Drivers::CanBus::setInterfaceIndex(const qsizetype interfaceIndex)
 
 void IO::Drivers::CanBus::setFrameProcessor(const QList<QCanMessageDescription> &messages)
 {
+    auto indexMap = indexer_type();
+
+    Q_FOREACH (auto message, messages)
+    {
+        auto messageSignals = message.signalDescriptions();
+        auto signalNames = QMap<quint16, QString>();
+        auto signalIndex = QStringList();
+
+        Q_FOREACH (auto messageSignal, messageSignals)
+        {
+            signalNames.insert(messageSignal.startBit(), messageSignal.name());
+        }
+
+        Q_FOREACH (auto signalName, signalNames)
+        {
+            signalIndex.append(signalName);
+        }
+
+        indexMap.insert(message.uniqueId(), signalIndex);
+    }
+
     m_processor.setMessageDescriptions(messages);
+    m_indexer = indexMap;
 }
 
 void IO::Drivers::CanBus::onErrorOccurred(QCanBusDevice::CanBusError error)
@@ -245,8 +266,9 @@ void IO::Drivers::CanBus::onFramesReceived()
     {
         auto frame = interface()->readFrame();
         auto result = m_processor.parseFrame(frame);
+        auto index = m_indexer.find(result.uniqueId);
 
-        if (result.signalValues.isEmpty())
+        if ((result.signalValues.isEmpty()) || (index == m_indexer.end()))
         {
             continue;
         }
@@ -254,10 +276,10 @@ void IO::Drivers::CanBus::onFramesReceived()
         packet.append(IO::Manager::instance().startSequence());
         packet.append(QString("0x%1").arg(static_cast<quint32>(result.uniqueId), 0, 16));
 
-        Q_FOREACH (auto signal, result.signalValues)
+        Q_FOREACH (auto signalName, index.value())
         {
             packet.append(IO::Manager::instance().separatorSequence());
-            packet.append(signal.toString());
+            packet.append(result.signalValues.value(signalName, QVariant(0)).toString());
         }
 
         packet.append(IO::Manager::instance().finishSequence());

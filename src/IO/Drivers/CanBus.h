@@ -95,7 +95,11 @@ private Q_SLOTS:
     void onTimerElapsed();
 
 private:
+    typedef QMap<QtCanBus::UniqueId, QStringList> indexer_type;
+
+private:
     bool m_connected;
+    indexer_type m_indexer;
     QCanBusDevice *m_interface;
     qsizetype m_interfaceIndex;
     QStringList m_interfaceList;
