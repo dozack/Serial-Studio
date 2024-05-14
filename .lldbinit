@@ -1,0 +1,3 @@
+settings set target.load-script-from-symbol-file true
+
+command script import .lldb/qt.py
